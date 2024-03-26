@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema(
   {
@@ -15,8 +15,10 @@ const postSchema = mongoose.Schema(
       type: String,
     },
     likes: {
-      type: Number,
-      default: 0,
+      // array of user ids
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "User",
+      default: [],
     },
     replies: [
       {
@@ -44,4 +46,5 @@ const postSchema = mongoose.Schema(
 );
 
 const Post = mongoose.model("Post", postSchema);
+
 export default Post;
