@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { CgMoreO } from "react-icons/cg";
 import { BsInstagram } from "react-icons/bs";
-export const UserHeader = () => {
+export const UserHeader = ({ user }) => {
   const toast = useToast();
   const copyURL = () => {
     const currentURL = window.location.href;
@@ -30,10 +30,10 @@ export const UserHeader = () => {
       <Flex justifyContent={"space-between"} w={"full"}>
         <Box>
           <Text fontSize={"2xl"} fontWeight={"bold"}>
-            Mark Zuckerberg
+            {user.name}
           </Text>
           <Flex gap={2} alignItems={"center"}>
-            <Text fontSize={"sm"}>markzuckerberg</Text>
+            <Text fontSize={"sm"}> {user.username}</Text>
             <Text
               fontSize={"xs"}
               // {
@@ -51,20 +51,33 @@ export const UserHeader = () => {
           </Flex>
         </Box>
         <Box>
-          <Avatar
-            name="Mark Zuckerberg"
-            src="/zuck-avatar.png"
-            size={{
-              base: "md",
-              md: "xl",
-            }}
-          />
+          {user.profilePic && (
+            <Avatar
+              name={user.name}
+              src={user.profilePic}
+              size={{
+                base: "md",
+                md: "xl",
+              }}
+            />
+          )}
+
+          {!user.profilePic && (
+            <Avatar
+              name={user.name}
+              src="https://bit.ly/broken-link"
+              size={{
+                base: "md",
+                md: "xl",
+              }}
+            />
+          )}
         </Box>
       </Flex>
-      <Text>Co-founder , executive chairman and CEO of Meta Platform</Text>
+      <Text> {user.bio}</Text>
       <Flex w={"full"} justifyContent={"space-between"}>
         <Flex gap={2} alignItems={"center"}>
-          <Text color={"gray.light"}>4.3k followers</Text>
+          <Text color={"gray.light"}> {user.followers.length}</Text>
           <Box w="1" h="1" bg={"gray.light"} borderRadius={"full"}></Box>
           <Link color={"gray.color"}>instagram.com</Link>
         </Flex>
